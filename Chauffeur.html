@@ -1,16 +1,42 @@
 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chauffeur</title>
+</head>
+
+<body style="font-size:40px; text-align:center;">
+
+<h1>Suivi Chauffeur</h1>
+
+<div id="result">Chargement...</div>
+
 <script>
-setInterval(() => {
+function loadData() {
     fetch('data.json')
-    .then(res => res.json())
+    .then(response => response.json())
     .then(data => {
-        if (!data.quai) {
+        if (!data.quai || data.quai === "") {
             document.getElementById("result").innerHTML = "Merci de patienter...";
         } else {
             document.getElementById("result").innerHTML =
                 "Quai : " + data.quai + "<br>Code : " + data.code;
         }
+    })
+    .catch(error => {
+        document.getElementById("result").innerHTML = "Erreur chargement";
     });
-}, 3000);
+}
+
+// premier chargement
+loadData();
+
+// rafraîchit toutes les 3 secondes
+setInterval(loadData, 3000);
 </script>
+
+</body>
+</html>
+
 
