@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chauffeur</title>
+</head>
+<body style="font-size:40px; text-align:center;">
+
+<h1>Suivi Chauffeur</h1>
+
+<div id="result"></div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const quai = urlParams.get('quai');
+const code = urlParams.get('code');
+
+if (!quai) {
+    document.getElementById("result").innerHTML = "Merci de patienter...";
+} else {
+    document.getElementById("result").innerHTML =
+        "Quai : " + quai + "<br>Code : " + code;
+}
+</script>
+
+</body>
+</html>
