@@ -1,27 +1,16 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chauffeur</title>
-</head>
-<body style="font-size:40px; text-align:center;">
-
-<h1>Suivi Chauffeur</h1>
-
-<div id="result"></div>
-
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const quai = urlParams.get('quai');
-const code = urlParams.get('code');
-
-if (!quai) {
-    document.getElementById("result").innerHTML = "Merci de patienter...";
-} else {
-    document.getElementById("result").innerHTML =
-        "Quai : " + quai + "<br>Code : " + code;
-}
+setInterval(() => {
+    fetch('data.json')
+    .then(res => res.json())
+    .then(data => {
+        if (!data.quai) {
+            document.getElementById("result").innerHTML = "Merci de patienter...";
+        } else {
+            document.getElementById("result").innerHTML =
+                "Quai : " + data.quai + "<br>Code : " + data.code;
+        }
+    });
+}, 3000);
 </script>
 
-</body>
-</html>
