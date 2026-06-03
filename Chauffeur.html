@@ -4,7 +4,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
 function loadData() {
-    fetch("https://TONSITE.sharepoint.com/sites/TONSITE/_api/web/lists/getbytitle('Arriveeschauffeurs')/items")
+    fetch("https://nicols.sharepoint.com/sites/WarehouseBertry/Lists/Arriveeschauffeur")
     .then(res => res.json())
     .then(data => {
         const item = data.value.find(x => x.ID == id);
