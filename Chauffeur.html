@@ -1,42 +1,26 @@
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chauffeur</title>
-</head>
-
-<body style="font-size:40px; text-align:center;">
-
-<h1>Suivi Chauffeur</h1>
-
-<div id="result">Chargement...</div>
-
 <script>
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
 function loadData() {
-    fetch('data.json')
-    .then(response => response.json())
+    fetch("https://TONSITE.sharepoint.com/sites/TONSITE/_api/web/lists/getbytitle('Arriveeschauffeurs')/items")
+    .then(res => res.json())
     .then(data => {
-        if (!data.quai || data.quai === "") {
+        const item = data.value.find(x => x.ID == id);
+
+        if (!item || !item.Quai) {
             document.getElementById("result").innerHTML = "Merci de patienter...";
         } else {
             document.getElementById("result").innerHTML =
-                "Quai : " + data.quai + "<br>Code : " + data.code;
+                "Quai : " + item.Quai + "<br>Code : " + item.Code;
         }
-    })
-    .catch(error => {
-        document.getElementById("result").innerHTML = "Erreur chargement";
     });
 }
 
-// premier chargement
 loadData();
-
-// rafraîchit toutes les 3 secondes
 setInterval(loadData, 3000);
 </script>
 
-</body>
-</html>
 
 
