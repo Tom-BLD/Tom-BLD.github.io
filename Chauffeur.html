@@ -4,21 +4,28 @@ const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
 function loadData() {
-    fetch("https://nicols.sharepoint.com/sites/WarehouseBertry/Lists/Arriveeschauffeur")
+    fetch('data.json')
     .then(res => res.json())
     .then(data => {
-        const item = data.value.find(x => x.ID == id);
 
-        if (!item || !item.Quai) {
+        const item = data.find(x => x.id == id);
+
+        if (!item || !item.quai) {
             document.getElementById("result").innerHTML = "Merci de patienter...";
         } else {
             document.getElementById("result").innerHTML =
-                "Quai : " + item.Quai + "<br>Code : " + item.Code;
+                "Quai : " + item.quai + "<br>Code : " + item.code;
         }
+    })
+    .catch(error => {
+        document.getElementById("result").innerHTML = "Erreur de chargement";
     });
 }
 
+// lance au chargement
 loadData();
+
+// rafraîchit toutes les 3 secondes
 setInterval(loadData, 3000);
 </script>
 
